@@ -1,0 +1,192 @@
+<html>
+  <style>
+  h1 {
+    text-align: center;
+  }
+
+  body {
+     font-family: Arial;
+  }
+
+  /* Create two unequal columns that floats next to each other */
+  .column {
+    float: left;
+    padding: 0px;
+  }
+
+  .left {
+    width: 50%;
+  }
+
+  .right {
+    width: 50%;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  input[type=text], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+    
+  input[type=submit] {
+    width: 50%;
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+    
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+    
+  div.container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  </style>
+
+  <body>
+    <head>
+      <h1>U.S. Soybean Annual Yield in Year 2016</h1>
+    </head>
+
+    <img src="Soybeans.jpg" alt="Soybean production" ></img>
+
+    <p>This is some text. <img src="Soybeans.jpg" alt="soybean" width="42" height="42" style="vertical-align:bottom"> 
+      This is some text. This is some text. This is some text.</p></img>
+    </body>
+    <div class="row">
+    <form action="#">
+        <div class="column left">
+          <h4>Select the location of interest:</h4>
+          <label for="Year">Year</label>
+          <select name="Year" id="Year">
+            <option value= "2016">2016</option>
+          </select>
+          <label for="Latitude">Latitude</label>
+          <select name="Latitude" id="Latitude">
+            <option value="48.75">48.75</option>
+            <option value="48.25">48.25</option>
+            <option value="47.75">47.75</option>
+          </select>
+          <label for="Longitude">Longitude</label>
+          <select name="Longitude" id="Longitude">
+            <option value="264.75">264.75</option>
+            <option value="260.75">260.75</option>
+            <option value="257.75">257.75</option>
+          </select>
+        </div>
+
+        <div class="column right">
+          <h4>Type in your desired climate condition:</h4>
+          <label for="JJA_SWdown">Mean incoming surface solar radiation in June through August [Unit: ]</label>
+          <input type="text" id="JJA_SWdown" name="JJA_SWdown" placeholder="accepted value range ..">
+          
+          <label for="JJA_LWnet">Mean net surface longwave radiaiton in June through August [Unit: ]</label>
+          <input type="text" id="JJA_LWnet" name="JJA_LWnet" placeholder="accepted value range ..">
+
+          <label for="JFMA_EF">Mean evaporative fraction in January through April [Unit: ]</label>
+          <input type="text" id="JFMA_EF" name="JFMA_EF" placeholder="accepted value range ..">
+
+          <label for="JJA_EF">Mean evaporative fraction in June through August [Unit: ]</label>
+          <input type="text" id="JJA_EF" name="JJA_EF" placeholder="accepted value range ..">
+
+          <label for="SO_EF">Mean evaporative fraction in September through October [Unit: ]</label>
+          <input type="text" id="SO_EF" name="SO_EF" placeholder="accepted value range ..">
+
+          <label for="JFMA_Rainf">Mean precipitation rate in January through April [Unit: ]</label>
+          <input type="text" id="JFMA_Rainf" name="JFMA_Rainf" placeholder="accepted value range ..">
+
+          <label for="MJJ_Rainf">Mean precipitation rate in May through July [Unit: ]</label>
+          <input type="text" id="MJJ_Rainf" name="MJJ_Rainf" placeholder="accepted value range ..">
+
+          <label for="JF_Snowf">Mean snowfall rate in January through February [Unit: ]</label>
+          <input type="text" id="JF_Snowf" name="JF_Snowf" placeholder="accepted value range ..">
+
+          <label for="JJA_ESoil">Mean soil evaporation in June through August [Unit: ]</label>
+          <input type="text" id="JJA_ESoil" name="JJA_ESoil" placeholder="accepted value range ..">
+
+          <label for="MJJA_Albedo">Mean surface albedo in May through August [Unit: ]</label>
+          <input type="text" id="MJJA_Albedo" name="MJJA_Albedo" placeholder="accepted value range ..">
+
+          <label for="MJJA_SoilM_0_10cm">Mean surface soil moisture in May through August [Unit: ]</label>
+          <input type="text" id="MJJA_SoilM_0_10cm" name="MJJA_SoilM_0_10cm" placeholder="accepted value range ..">
+
+          <label for="JFMA_RootMoist">Mean root zone moisture in January through April [Unit: ]</label>
+          <input type="text" id="JFMA_RootMoist" name="JFMA_RootMoist" placeholder="accepted value range ..">
+
+          <label for="JanToApr_LAI">Mean leaf area index in January through April [Unit: ]</label>
+          <input type="text" id="JanToApr_LAI" name="JanToApr_LAI" placeholder="accepted value range ..">
+
+          <label for="MayToOct_ACond">Mean aerodynamic conductance in May through October [Unit: ]</label>
+          <input type="text" id="MayToOct_ACond" name="MayToOct_ACond" placeholder="accepted value range ..">
+
+          <label for="Lead_AnnualTotal_Rainf">Total precipitation rate from the previous year [Unit: ]</label>
+          <input type="text" id="Lead_AnnualTotal_Rainf" name="Lead_AnnualTotal_Rainf" placeholder="accepted value range ..">
+
+          <label for="ECanop_Jan">Canopy evaporation in January [Unit: ]</label>
+          <input type="text" id="ECanop_Jan" name="ECanop_Jan" placeholder="accepted value range ..">
+
+          <label for="ACond_Jan">Aerodynamic conductance in January [Unit: ]</label>
+          <input type="text" id="ACond_Jan" name="ACond_Jan" placeholder="accepted value range ..">
+
+          <label for="Qle_Jan">Latent heat flux in January [Unit: ]</label>
+          <input type="text" id="Qle_Jan" name="Qle_Jan" placeholder="accepted value range ..">
+
+          <label for="GVEG_Apr">Green vegetation in April [Unit: ]</label>
+          <input type="text" id="GVEG_Apr" name="GVEG_Apr" placeholder="accepted value range ..">
+
+          <label for="SoilM_100_200cm_Sep">Soil moisture in 100-200cm depth in September [Unit: ]</label>
+          <input type="text" id="SoilM_100_200cm_Sep" name="SoilM_100_200cm_Sep" placeholder="accepted value range ..">
+
+          <label for="LWnet_May">Net surface longwave radiation in May [Unit: ]</label>
+          <input type="text" id="LWnet_May" name="LWnet_May" placeholder="accepted value range ..">
+
+          <label for="ESoil_May">Soil evaporation in May [Unit: ]</label>
+          <input type="text" id="ESoil_May" name="ESoil_May" placeholder="accepted value range ..">
+
+          <label for="AvgSurfT_Aug">Surface temperature in August [Unit: ]</label>
+          <input type="text" id="AvgSurfT_Avg" name="AvgSurfT_Avg" placeholder="accepted value range ..">
+
+          <input type="submit" value="Submit">
+        </div>
+    </form>
+  </div>
+<!--
+    <div class="container">
+      <form action="#">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+    
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+    
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="australia">Australia</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+      
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  -->
+  </body>
+</html>
