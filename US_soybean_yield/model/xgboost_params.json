@@ -1,0 +1,10 @@
+{
+    "xgbR__subsample": 0.8,
+    "xgbR__reg_alpha": 0,
+    "xgbR__n_estimators": 300,
+    "xgbR__min_child_weight": 0.5,
+    "xgbR__max_depth": 9,
+    "xgbR__learning_rate": 0.3,
+    "xgbR__gamma": 0,
+    "xgbR__colsample_bytree": 0.7
+}
