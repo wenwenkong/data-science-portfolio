@@ -1,192 +1,173 @@
-<html>
-  <style>
-  h1 {
-    text-align: center;
-  }
+<!DOCTYPE html>
+<html land="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/soybean.css">
+  <!--<title><h1>U.S. Soybean Annual Yield in Year 2016</h1></title>-->
+</head>
 
-  body {
-     font-family: Arial;
-  }
-
-  /* Create two unequal columns that floats next to each other */
-  .column {
-    float: left;
-    padding: 0px;
-  }
-
-  .left {
-    width: 50%;
-  }
-
-  .right {
-    width: 50%;
-  }
-
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
-
-  input[type=text], select {
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-    
-  input[type=submit] {
-    width: 50%;
-    background-color: #04AA6D;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-    
-  input[type=submit]:hover {
-    background-color: #45a049;
-  }
-    
-  div.container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  </style>
-
-  <body>
-    <head>
-      <h1>U.S. Soybean Annual Yield in Year 2016</h1>
-    </head>
-
-    <img src="Soybeans.jpg" alt="Soybean production" ></img>
-
-    <p>This is some text. <img src="Soybeans.jpg" alt="soybean" width="42" height="42" style="vertical-align:bottom"> 
-      This is some text. This is some text. This is some text.</p></img>
-    </body>
+<body>
+    <h1>U.S. Soybean Annual Yield in Year 2016</h1>
     <div class="row">
-    <form action="#">
-        <div class="column left">
-          <h4>Select the location of interest:</h4>
-          <label for="Year">Year</label>
-          <select name="Year" id="Year">
-            <option value= "2016">2016</option>
-          </select>
-          <label for="Latitude">Latitude</label>
-          <select name="Latitude" id="Latitude">
-            <option value="48.75">48.75</option>
-            <option value="48.25">48.25</option>
-            <option value="47.75">47.75</option>
-          </select>
-          <label for="Longitude">Longitude</label>
-          <select name="Longitude" id="Longitude">
-            <option value="264.75">264.75</option>
-            <option value="260.75">260.75</option>
-            <option value="257.75">257.75</option>
-          </select>
-        </div>
-
-        <div class="column right">
-          <h4>Type in your desired climate condition:</h4>
-          <label for="JJA_SWdown">Mean incoming surface solar radiation in June through August [Unit: ]</label>
-          <input type="text" id="JJA_SWdown" name="JJA_SWdown" placeholder="accepted value range ..">
+      <form action="/predict" method="POST">
+          <div class="column left">
+            <h4>Year of interest:</h4>
+            <select name="year" id="year">
+              <option value= "2016">2016</option>
+            </select>
+            
+            <h4>Location of interest:</h4>
+            <label for="lat">Latitude</label>
+            <select name="lat" id="lat">
+              <option value="48.75">48.75</option>
+              <option value="48.25">48.25</option>
+              <option value="47.75">47.75</option>
+            </select>
           
-          <label for="JJA_LWnet">Mean net surface longwave radiaiton in June through August [Unit: ]</label>
-          <input type="text" id="JJA_LWnet" name="JJA_LWnet" placeholder="accepted value range ..">
+            <label for="lon">Longitude</label>
+            <select name="lon" id="lon">
+              <option value="264.75">264.75</option>
+              <option value="260.75">260.75</option>
+              <option value="257.75">257.75</option>
+            </select>
 
-          <label for="JFMA_EF">Mean evaporative fraction in January through April [Unit: ]</label>
-          <input type="text" id="JFMA_EF" name="JFMA_EF" placeholder="accepted value range ..">
+            <h4>Key surface energy balance values</h4>
+            <label for="JJA_SWdown">Incoming shortwave fluxes (June-August average) [W m-2]</label>
+            <input type="text" id="JJA_SWdown" name="JJA_SWdown" placeholder="accepted value range ..">
+          
+            <label for="LWnet_May">Net longwave fluxes (May) [W m-2]</label>
+            <input type="text" id="LWnet_May" name="LWnet_May" placeholder="accepted value range ..">
 
-          <label for="JJA_EF">Mean evaporative fraction in June through August [Unit: ]</label>
-          <input type="text" id="JJA_EF" name="JJA_EF" placeholder="accepted value range ..">
+            <label for="JJA_LWnet">Net longwave fluxes (June-August average) [W m-2]</label>
+            <input type="text" id="JJA_LWnet" name="JJA_LWnet" placeholder="accepted value range ..">
 
-          <label for="SO_EF">Mean evaporative fraction in September through October [Unit: ]</label>
-          <input type="text" id="SO_EF" name="SO_EF" placeholder="accepted value range ..">
+            <label for="JFMA_EF">Evaporative fraction (January-April average) [fraction]</label>
+            <input type="text" id="JFMA_EF" name="JFMA_EF" placeholder="accepted value range ..">
 
-          <label for="JFMA_Rainf">Mean precipitation rate in January through April [Unit: ]</label>
-          <input type="text" id="JFMA_Rainf" name="JFMA_Rainf" placeholder="accepted value range ..">
+            <label for="JJA_EF">Evaporative fraction (June-August average) [fraction]</label>
+            <input type="text" id="JJA_EF" name="JJA_EF" placeholder="accepted value range ..">
 
-          <label for="MJJ_Rainf">Mean precipitation rate in May through July [Unit: ]</label>
-          <input type="text" id="MJJ_Rainf" name="MJJ_Rainf" placeholder="accepted value range ..">
+            <label for="SO_EF">Evaporative fraction (September-October average) [fraction]</label>
+            <input type="text" id="SO_EF" name="SO_EF" placeholder="accepted value range ..">
 
-          <label for="JF_Snowf">Mean snowfall rate in January through February [Unit: ]</label>
-          <input type="text" id="JF_Snowf" name="JF_Snowf" placeholder="accepted value range ..">
+            <label for="Qle_Jan">Latent heat flux (January) [W m-2]</label>
+            <input type="text" id="Qle_Jan" name="Qle_Jan" placeholder="accepted value range ..">
+          </div>
 
-          <label for="JJA_ESoil">Mean soil evaporation in June through August [Unit: ]</label>
-          <input type="text" id="JJA_ESoil" name="JJA_ESoil" placeholder="accepted value range ..">
+          <div class="column middle">
+            <h4>Rain and snow</h4>
+            <label for="JFMA_Rainf">Precipitation rate (January-April average) [kg m-2]</label>
+            <input type="text" id="JFMA_Rainf" name="JFMA_Rainf" placeholder="accepted value range ..">
 
-          <label for="MJJA_Albedo">Mean surface albedo in May through August [Unit: ]</label>
-          <input type="text" id="MJJA_Albedo" name="MJJA_Albedo" placeholder="accepted value range ..">
+            <label for="MJJ_Rainf">Precipitation rate (May-Jul average) [kg m-2]</label>
+            <input type="text" id="MJJ_Rainf" name="MJJ_Rainf" placeholder="accepted value range ..">
 
-          <label for="MJJA_SoilM_0_10cm">Mean surface soil moisture in May through August [Unit: ]</label>
-          <input type="text" id="MJJA_SoilM_0_10cm" name="MJJA_SoilM_0_10cm" placeholder="accepted value range ..">
+            <label for="JF_Snowf">Snowfall rate (January-February) [kg m-2]</label>
+            <input type="text" id="JF_Snowf" name="JF_Snowf" placeholder="accepted value range ..">
 
-          <label for="JFMA_RootMoist">Mean root zone moisture in January through April [Unit: ]</label>
-          <input type="text" id="JFMA_RootMoist" name="JFMA_RootMoist" placeholder="accepted value range ..">
+            <label for="Lead_AnnualTotal_Rainf">Total precipitation rate from the previous year [kg m-2]</label>
+            <input type="text" id="Lead_AnnualTotal_Rainf" name="Lead_AnnualTotal_Rainf" placeholder="accepted value range ..">
 
-          <label for="JanToApr_LAI">Mean leaf area index in January through April [Unit: ]</label>
-          <input type="text" id="JanToApr_LAI" name="JanToApr_LAI" placeholder="accepted value range ..">
+            <h4>Soil moisture related values</h4>
+            <label for="MJJA_SoilM_0_10cm">Surface soil moisture (May-August average) [kg m-2]</label>
+            <input type="text" id="MJJA_SoilM_0_10cm" name="MJJA_SoilM_0_10cm" placeholder="accepted value range ..">
 
-          <label for="MayToOct_ACond">Mean aerodynamic conductance in May through October [Unit: ]</label>
-          <input type="text" id="MayToOct_ACond" name="MayToOct_ACond" placeholder="accepted value range ..">
+            <label for="SoilM_100_200cm_Sep">Soil moisture in 100-200cm depth (September) [kg m-2]</label>
+            <input type="text" id="SoilM_100_200cm_Sep" name="SoilM_100_200cm_Sep" placeholder="accepted value range ..">
 
-          <label for="Lead_AnnualTotal_Rainf">Total precipitation rate from the previous year [Unit: ]</label>
-          <input type="text" id="Lead_AnnualTotal_Rainf" name="Lead_AnnualTotal_Rainf" placeholder="accepted value range ..">
+            <label for="JFMA_RootMoist">Root zone moisture (January-April average) [kg m-2]</label>
+            <input type="text" id="JFMA_RootMoist" name="JFMA_RootMoist" placeholder="accepted value range ..">
 
-          <label for="ECanop_Jan">Canopy evaporation in January [Unit: ]</label>
-          <input type="text" id="ECanop_Jan" name="ECanop_Jan" placeholder="accepted value range ..">
+            <!--<input type="submit" value="Submit">-->
+            <div class="buttonHolder">
+              <input value="submit" title="submit" type="submit" id="submit"> 
+            </div>
 
-          <label for="ACond_Jan">Aerodynamic conductance in January [Unit: ]</label>
-          <input type="text" id="ACond_Jan" name="ACond_Jan" placeholder="accepted value range ..">
+            <!--Result-->
+            <div id="result">
+            </div>
+          </div>
 
-          <label for="Qle_Jan">Latent heat flux in January [Unit: ]</label>
-          <input type="text" id="Qle_Jan" name="Qle_Jan" placeholder="accepted value range ..">
+          <div class="column right">
+            <h4>Surface evaporation</h4>
+            <label for="ESoil_May">Soil evaporation (May) [W m-2]</label>
+            <input type="text" id="ESoil_May" name="ESoil_May" placeholder="accepted value range ..">
 
-          <label for="GVEG_Apr">Green vegetation in April [Unit: ]</label>
-          <input type="text" id="GVEG_Apr" name="GVEG_Apr" placeholder="accepted value range ..">
+            <label for="JJA_ESoil">Soil evaporation (Jun-August average) [W m-2]</label>
+            <input type="text" id="JJA_ESoil" name="JJA_ESoil" placeholder="accepted value range ..">
 
-          <label for="SoilM_100_200cm_Sep">Soil moisture in 100-200cm depth in September [Unit: ]</label>
-          <input type="text" id="SoilM_100_200cm_Sep" name="SoilM_100_200cm_Sep" placeholder="accepted value range ..">
+            <label for="ECanop_Jan">Canopy evaporation (January) [W m-2]</label>
+            <input type="text" id="ECanop_Jan" name="ECanop_Jan" placeholder="accepted value range ..">
 
-          <label for="LWnet_May">Net surface longwave radiation in May [Unit: ]</label>
-          <input type="text" id="LWnet_May" name="LWnet_May" placeholder="accepted value range ..">
+            <h4>Other near-surface properties</h4>
+            <label for="MJJA_Albedo">Surface albedo (May-August average) [unitless]</label>
+            <input type="text" id="MJJA_Albedo" name="MJJA_Albedo" placeholder="accepted value range ..">
 
-          <label for="ESoil_May">Soil evaporation in May [Unit: ]</label>
-          <input type="text" id="ESoil_May" name="ESoil_May" placeholder="accepted value range ..">
+            <label for="AvgSurfT_Aug">Surface temperature (August) [K]</label>
+            <input type="text" id="AvgSurfT_Aug" name="AvgSurfT_Aug" placeholder="accepted value range ..">
 
-          <label for="AvgSurfT_Aug">Surface temperature in August [Unit: ]</label>
-          <input type="text" id="AvgSurfT_Avg" name="AvgSurfT_Avg" placeholder="accepted value range ..">
+            <label for="JanToApr_LAI">Leaf area index (January-April average) [unitless]</label>
+            <input type="text" id="JanToApr_LAI" name="JanToApr_LAI" placeholder="accepted value range ..">
 
-          <input type="submit" value="Submit">
+            <label for="GVEG_Apr">Green vegetation (April) [fraction]</label>
+            <input type="text" id="GVEG_Apr" name="GVEG_Apr" placeholder="accepted value range ..">
+            
+            <label for="ACond_Jan">Aerodynamic conductance (January) [m s-1]</label>
+            <input type="text" id="ACond_Jan" name="ACond_Jan" placeholder="accepted value range ..">
+
+            <label for="MayToOct_ACond">Aerodynamic conductance (May-October average) [m s-1]</label>
+            <input type="text" id="MayToOct_ACond" name="MayToOct_ACond" placeholder="accepted value range ..">
+
+          </div>
+        </form>
         </div>
-    </form>
-  </div>
-<!--
-    <div class="container">
-      <form action="#">
-        <label for="fname">First Name</label>
-        <input type="text" id="fname" name="firstname" placeholder="Your name..">
-    
-        <label for="lname">Last Name</label>
-        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-    
-        <label for="country">Country</label>
-        <select id="country" name="country">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-        </select>
-      
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-  -->
+      </div>
+
+  <!-- Javascript-->
+  <script>
+    window.onload = function() {
+      document.getElementById("submit").addEventListener('click', async (event) => {
+        event.preventDefault();
+        const response = await fetch("/predict", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            lat : document.getElementById("lat").value,
+            lon : document.getElementById("lon").value,
+            year: document.getElementById("year").value,
+            JJA_SWdown : document.getElementById("JJA_SWdown").value,
+            JJA_LWnet : document.getElementById("JJA_LWnet").value,
+            JFMA_EF : document.getElementById("JFMA_EF").value,
+            JJA_EF : document.getElementById("JJA_EF").value,
+            SO_EF : document.getElementById("SO_EF").value,
+            JFMA_Rainf : document.getElementById("JFMA_Rainf").value,
+            MJJ_Rainf : document.getElementById("MJJ_Rainf").value,
+            JF_Snowf : document.getElementById("JF_Snowf").value,
+            JJA_ESoil : document.getElementById("JJA_ESoil").value,
+            MJJA_Albedo : document.getElementById("MJJA_Albedo").value,
+            MJJA_SoilM_0_10cm : document.getElementById("MJJA_SoilM_0_10cm").value,
+            JFMA_RootMoist : document.getElementById("JFMA_RootMoist").value,
+            JanToApr_LAI : document.getElementById("JanToApr_LAI").value,
+            MayToOct_ACond : document.getElementById("MayToOct_ACond").value,
+            Lead_AnnualTotal_Rainf : document.getElementById("Lead_AnnualTotal_Rainf").value,
+            ECanop_Jan : document.getElementById("ECanop_Jan").value,
+            ACond_Jan : document.getElementById("ACond_Jan").value,
+            Qle_Jan : document.getElementById("Qle_Jan").value,
+            GVEG_Apr : document.getElementById("GVEG_Apr").value,
+            SoilM_100_200cm_Sep : document.getElementById("SoilM_100_200cm_Sep").value,
+            LWnet_May : document.getElementById("LWnet_May").value,
+            ESoil_May : document.getElementById("ESoil_May").value,
+            AvgSurfT_Aug : document.getElementById("AvgSurfT_Aug").value,
+          })
+        });
+        const json = await response.json();
+        document.getElementById("result").innerHTML = `Predicted soybean annual yield in 2016: ${json.Predicted_Yield}`;
+      });
+    };
+  </script>
   </body>
 </html>
