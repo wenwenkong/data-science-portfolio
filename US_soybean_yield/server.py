@@ -4,20 +4,69 @@ import joblib
 
 app = Flask(__name__)
 
+feature_order = ["lat",\
+                 "lon",\
+                 "year",\
+                 "JJA_SWdown",\
+                 "JJA_LWnet",\
+                 "JFMA_EF",\
+                 "JJA_EF",\
+                 "SO_EF",\
+                 "JFMA_Rainf",\
+                 "MJJ_Rainf",\
+                 "JF_Snowf",\
+                 "JJA_ESoil",\
+                 "MJJA_Albedo",\
+                 "MJJA_SoilM_0_10cm",\
+                 "JFMA_RootMoist",\
+                 "JanToApr_LAI",\
+                 "MayToOct_ACond",\
+                 "Lead_AnnualTotal_Rainf",\
+                 "ECanop_Jan",\
+                 "ACond_Jan",\
+                 "Qle_Jan",\
+                 "GVEG_Apr",\
+                 "SoilM_100_200cm_Sep",\
+                 "LWnet_May",\
+                 "ESoil_May",\
+                 "AvgSurfT_Aug"]
+
 @app.route("/predict", methods=['POST'])
 def yield_prediction():
+    # ------------------------------------------#
+    # solicit input and turn input to dataframe #
+    # ------------------------------------------#
     json = request.get_json()
-    model= joblib.load('model/xgboost_model.pkl')
     df   = pd.DataFrame(json, index=[0])
 
+    # ----------------- #
+    # load the model    #
+    # ------------------#
+    model= joblib.load('model/xgboost_model.pkl')
+
+    # ----------#
+    # scaling   #
+    # ----------#
     from sklearn.preprocessing import StandardScaler
     scaler = StandardScaler()
     
     df_x_scaled = scaler.fit_transform(df)
     df_x_scaled = pd.DataFrame(df_x_scaled, columns=df.columns)
+
+    # -------------------------------------------------#
+    # make sure the columns follow  the feature_order  #
+    # -------------------------------------------------#
+    df_x_scaled = df_x_scaled[feature_order]
+
+    # ----------- #
+    #   predict   #
+    # ------------#
     y_predict   = model.predict(df_x_scaled)
 
-    result      = {"Predicted soybean annual yield in 2016": float(y_predict[0])}
+    # ----------------- #
+    # return the result
+    # ----------------- #
+    result      = {"Predicted_Yield": float(y_predict[0])}
     return jsonify(result)
 
 @app.route("/")
