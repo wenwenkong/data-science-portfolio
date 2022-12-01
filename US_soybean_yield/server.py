@@ -44,27 +44,18 @@ def yield_prediction():
     # ------------------#
     model= joblib.load('model/xgboost_model.pkl')
 
-    # ----------#
-    # scaling   #
-    # ----------#
-    from sklearn.preprocessing import StandardScaler
-    scaler = StandardScaler()
-    
-    df_x_scaled = scaler.fit_transform(df)
-    df_x_scaled = pd.DataFrame(df_x_scaled, columns=df.columns)
-
     # -------------------------------------------------#
     # make sure the columns follow  the feature_order  #
     # -------------------------------------------------#
-    df_x_scaled = df_x_scaled[feature_order]
+    df = df[feature_order]
 
     # ----------- #
     #   predict   #
     # ------------#
-    y_predict   = model.predict(df_x_scaled)
+    y_predict   = model.predict(df)
 
     # ----------------- #
-    # return the result
+    # return the result #
     # ----------------- #
     result      = {"Predicted_Yield": float(y_predict[0])}
     return jsonify(result)
