@@ -52,7 +52,7 @@ def yield_prediction():
     # ----------- #
     #   predict   #
     # ------------#
-    y_predict   = model.predict(df)
+    y_predict   = model.predict(df.values)
 
     # ----------------- #
     # return the result #

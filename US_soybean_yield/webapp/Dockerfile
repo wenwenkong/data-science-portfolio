@@ -7,6 +7,7 @@ RUN pip install pandas scikit-learn xgboost flask gunicorn
 ADD ./model ./model
 ADD server.py server.py
 ADD ./templates ./templates
+ADD ./static ./static
 
 EXPOSE 60000
 
