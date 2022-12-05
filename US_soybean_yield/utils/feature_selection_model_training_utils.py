@@ -9,7 +9,7 @@ from sklearn.linear_model import Lasso
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 import xgboost
-SEED = 42
+SEED = 0
 
 def variance_threshold_selector(df, threshold):
     """
