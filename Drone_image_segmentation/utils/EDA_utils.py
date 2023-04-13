@@ -1,7 +1,9 @@
 import os
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
+import cv2
 
 def get_classes_RGB(df, col_class, col_R, col_G, col_B):
     '''
@@ -32,6 +34,8 @@ def get_classes_RGB(df, col_class, col_R, col_G, col_B):
     COLORS: list of nested lists
         each nested list contains R, G, B information corresponding to one class
 
+    DICT: dictionary 
+        contains paired values of CLASSES and COLORS
     '''
 
     CLASSES = df[col_class]
@@ -39,9 +43,13 @@ def get_classes_RGB(df, col_class, col_R, col_G, col_B):
     COLORS=[]
 
     for i in range(0, len(CLASSES)):
-        COLORS.append([df[col_R][i], df[col_G][i], df[col_B][i]])
+        COLORS.append([int(df[col_R][i]), int(df[col_G][i]), int(df[col_B][i])])
 
-    return CLASSES, COLORS
+    DICT = {}
+    for i, label in enumerate(CLASSES):
+        DICT[label] = COLORS[i]
+
+    return CLASSES, COLORS, DICT
 
 def plot_class_colorlabel(CLASSES, COLORS, title):
     '''
@@ -161,4 +169,83 @@ def panel_multiple_pairs(pairs, raw_path, labeled_path, title):
     plt.suptitle(title, y = 0.9, fontsize=20, fontweight='bold')
     plt.show()
 
+def width_height_aspect(path, files):
+    '''
+    Extract the width, height, and aspect ratio of the image dataset
 
+    Parameters
+    ----------
+    path: string
+        folder path where the files live
+
+    files: list of strings
+        file names of the images
+
+    Returns
+    ----------
+    width: list of numerical values
+
+    height: list of numerical values
+
+    aspect: list of numerical values
+
+    '''
+
+    width, height, aspect = [], [], []
+
+    for file in files:
+        img = Image.open(path + file)
+
+        temp_width, temp_height = img.size
+        temp_aspect = temp_width / temp_height
+
+        width.append(temp_width)
+        height.append(temp_height)
+        aspect.append(temp_aspect)
+
+    return width, height, aspect
+
+def class_counts(path, files, CLASSES, COLORS):
+    '''
+    Get the label counts based on the RGB match between pixels and label colors
+    
+    Parameters
+    ----------
+    path: string
+        folder path where files live
+        
+    files: list of strings
+        each string denotes the name of an image file
+        
+    CLASSES: list of strings
+        each string denotes a class label
+    
+    COLORS: list of arrays
+        each array contains the RGB information for a class label
+    
+    Returns
+    ----------
+    sorted_label_counts: dictionary
+        contains the class label and label counts across all files
+
+        the dictionary is sorted in an descending order based on label counts
+    
+    '''
+    
+    label_counts = {label: 0 for label in CLASSES}
+    
+    for file in files:
+        im_cv = cv2.imread(path + file)
+        
+        im_rgb= cv2.cvtColor(im_cv, cv2.COLOR_BGR2RGB)
+        
+        im = im_rgb.reshape(im_rgb.shape[0] * im_rgb.shape[1], 3)
+        
+        for label, label_RGB in zip(CLASSES, COLORS):
+            matches = np.all(im == label_RGB, axis=1)
+            label_counts[label] += np.count_nonzero(matches)
+   
+    label_counts_sorted_by_counts = sorted(label_counts.items(), key=lambda x:x[1], reverse=True)
+    sorted_label_counts = dict(label_counts_sorted_by_counts)
+
+    return sorted_label_counts
