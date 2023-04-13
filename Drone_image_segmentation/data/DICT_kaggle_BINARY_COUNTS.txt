@@ -1,0 +1,1 @@
+{"landing-zones": 213715769, "obstacles": 68908231}

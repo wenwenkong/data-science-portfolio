@@ -1,0 +1,1 @@
+{"obstacles": [155, 38, 182], "water": [14, 135, 204], "soft-surfaces": [124, 252, 0], "moving-objects": [255, 20, 147], "landing-zones": [169, 169, 169]}

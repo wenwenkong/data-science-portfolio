@@ -1,0 +1,1 @@
+{"landing-zones": 148172117, "soft-surfaces": 95179194, "obstacles": 25357858, "water": 8066536, "moving-objects": 5848295}
