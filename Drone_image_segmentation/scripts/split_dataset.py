@@ -1,6 +1,34 @@
 """
-For semantic segmentation the folder structure needs to look like below
-if you want to use ImageDatagenerator.
+---
+Structure of the original folder (before splitting to train/val/test)
+
+Data/
+
+    images/
+
+    masks/
+
+---
+Structure of the folder after splitting to train/val/test
+
+Data/
+
+    train/
+        images/
+        masks/
+
+    val/
+        images/
+        masks/
+
+    test/
+        images/
+        masks/
+
+---
+***** IMPORTANT *****:
+
+For semantic segmentation the folder structure needs to look like below if you want to use ImageDatagenerator.
 So after splitting your folders to train, val and possibly also test, rearrange them to the following format. 
 
 Data/
